@@ -1,17 +1,26 @@
-from data_load import Request
-from logger import setup_logging
+from src.classes import SuperJobAPI, HeadHunterAPI, Vacancy, WriteInfo
 
-logger = setup_logging
+def get_vacancy_hh(profession, ):
+    hh_api = HeadHunterAPI()
+    hh_vacancy = hh_api.get_vacancies(profession)
+    vac = Vacancy()
+    vac_sort = vac.sorted_vacancies()
+    vac_write = WriteInfo().data_write(profession)
+def start():
+    print("""Приветствую тебя пользователь!!!
+             Тебе нужна работа?
+             1 - Да, нуждаюсь в работе...
+             2 - Не, блатные не работают...""")
+    user_input = input()
+    if user_input == "2" or user_input == 2:
+        pass
+    print("""Отлично, в два клика мы сможем подобрать для тебя подходящие вакансии
+             Нажми 1 - Подберем для тебя вакансии с сайта hh.ru
+             Нажми 2 - Подберем для тебя вакансии с сайта SuperJob
+             Нажми 3 - Подберем для тебя вакансии с сайта hh.ru и SuperJob""")
+    user_input = input()
+    if user_input == "1":
 
 
-class HeadHunterAPI(Request):
-    def __init__(self, profession, url):
-        super().__init__(profession, url)
 
 
-class SuperJobAPI(Request):
-    pass
-
-
-url = 'https://api.hh.ru/vacancies'
-print(HeadHunterAPI('python', url))

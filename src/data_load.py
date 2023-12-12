@@ -3,32 +3,22 @@ import json
 import time
 import os
 from abc import ABC, abstractmethod
-from logger import setup_logging
+from src.logger import setup_logging
 logger = setup_logging
 
 
 class Request(ABC):
-    def __init__(self, profession, url, page=0):
-        self.profession = profession
-        self.url = url
-        self.page = page
-
 
     @abstractmethod
-    def get_page(self):
-        logger.info("Функция get_page начала свою работу")
-        params = {'text': f'NAME:{self.profession}',
-                  'page': self.page,
-                  'per_page': 100
-                  }
+    def get_vacancies(self, *args, **kwargs):
+        pass
 
-        req = requests.get(self.url, params)
-        data = req.content.decode()
-        req.close()
-        with open('data_json.json', 'w', encoding='utf8') as file:
-            file.write(json.dumps(data, indent=2, ensure_ascii=False))
-            time.sleep(0.25)
-        logger.info("Функция get_page закончила свою работу с результатом 0")
+
+class DataWrite:
+
+    @abstractmethod
+    def data_write(self, *args, **kwargs):
+        pass
 
 
     # for page in range(0, 2):
